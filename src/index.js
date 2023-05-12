@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     canvas.height = 576;
     
     let game = new Game(ctx, canvas);
+    game.init();
     game.animate();
 
 });

@@ -17,21 +17,32 @@ class Game {
         };
         this.scrollOffSet = 0;
         this.platforms = []; // TODO make a level class that handles platforms
+        this.genericObjects = [];
        
         this.bindKeys = this.bindKeys.bind(this);
         this.makePlatforms = this.makePlatforms.bind(this);
         this.platformCollision = this.platformCollision.bind(this);
+        this.floorHit = this.floorHit.bind(this);
         this.win = this.win.bind(this);
+        this.resetKeys = this.resetKeys.bind(this);
 
         this.bindKeys();
-        this.makePlatforms();
     }
 
-    makePlatforms() {
+    makePlatforms() { // TODO make this a level class creation
+
+        if (this.platforms.length > 0) {
+            this.platforms = [];
+        }
+
         let platform1 = new Platform(200, 300, this.canvas, this.ctx);
         let platform2 = new Platform(500, 400, this.canvas, this.ctx);
         let platform3 = new Platform(700, 350, this.canvas, this.ctx);
-        this.platforms.push(platform1, platform2, platform3);
+        let platform4 = new Platform(1000, 350, this.canvas, this.ctx);
+        let platform5 = new Platform(1200, 250, this.canvas, this.ctx);
+        let platform6 = new Platform(100, (this.canvas.height - 20), this.canvas, this.ctx);
+
+        this.platforms.push(platform1, platform2, platform3, platform4, platform5, platform6);
     }
 
     platformCollision() {
@@ -45,6 +56,30 @@ class Game {
                 };
         });
     };
+
+    floorHit() {
+        if (this.player.position.y >= this.canvas.height) {
+           this.init();
+        }
+    }
+
+    resetKeys() {
+        this.keys = {
+            right: {
+                pressed: false
+            },
+            left: {
+                pressed: false
+            }
+        };
+    }
+
+    init() {
+        this.player = new Player(this.canvas, this.ctx);
+        this.makePlatforms();
+        this.resetKeys();
+        this.scrollOffSet = 0;
+    }
 
     win() {
         if (this.scrollOffSet > 2000) {
@@ -82,6 +117,7 @@ class Game {
 
         this.platformCollision();
 
+        this.floorHit();
 
         this.win();
     }

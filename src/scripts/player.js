@@ -31,7 +31,7 @@ class Player {
         if (this.position.y + this.height + this.velocity.y <= this.canvas.height) {
             this.velocity.y += this.gravity;
         } else {
-            this.velocity.y = 0;
+            // this.velocity.y = 0;
         }
     }
 }
