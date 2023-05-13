@@ -1,5 +1,11 @@
 import Player from './player';
 import Platform from './platform';
+import GenericObject from './genericObject';
+
+import background from '../images/background.png';
+import hills from '../images/hills.png'
+import platform from '../images/platform.png';
+import platformSmallTall from '../images/platformSmallTall.png';
 
 class Game {
     constructor(ctx, canvas) {
@@ -25,24 +31,50 @@ class Game {
         this.floorHit = this.floorHit.bind(this);
         this.win = this.win.bind(this);
         this.resetKeys = this.resetKeys.bind(this);
+        this.createImage = this.createImage.bind(this);
+        this.setBackdrop = this.setBackdrop.bind(this);
 
         this.bindKeys();
+    }
+
+    createImage(imgSrc) {
+        let image = new Image();
+        image.src = imgSrc;
+        return image
+    }
+
+    setBackdrop() {
+        if (this.genericObjects.length > 0) {
+            this.genericObjects = []
+        }
+
+        this.genericObjects = [
+            new GenericObject(this.ctx, this.canvas, -2, -1, this.createImage(background)),
+            new GenericObject(this.ctx, this.canvas, -2, -1, this.createImage(hills))
+        ]
+        this.genericObjects.forEach(genericObject => genericObject.draw())
     }
 
     makePlatforms() { // TODO make this a level class creation
 
         if (this.platforms.length > 0) {
-            this.platforms = [];
+            this.platforms = []
         }
 
-        let platform1 = new Platform(200, 300, this.canvas, this.ctx);
-        let platform2 = new Platform(500, 400, this.canvas, this.ctx);
-        let platform3 = new Platform(700, 350, this.canvas, this.ctx);
-        let platform4 = new Platform(1000, 350, this.canvas, this.ctx);
-        let platform5 = new Platform(1200, 250, this.canvas, this.ctx);
-        let platform6 = new Platform(100, (this.canvas.height - 20), this.canvas, this.ctx);
+        this.platforms = [
+            new Platform(0, this.canvas.height - 124, this.canvas, this.ctx, this.createImage(platform)),
+            new Platform(580 - 2, this.canvas.height - 124, this.canvas, this.ctx, this.createImage(platform)),
+            new Platform(580 * 2 - 3, this.canvas.height - 124, this.canvas, this.ctx, this.createImage(platform)),
+            new Platform(580 * 3 - 4, this.canvas.height - 124, this.canvas, this.ctx, this.createImage(platform)),
+            new Platform(580 * 4 - 5, this.canvas.height - 124, this.canvas, this.ctx, this.createImage(platform)),
+            new Platform(580 * 5 - 6, this.canvas.height - 124, this.canvas, this.ctx, this.createImage(platform)),
+            new Platform(580 * 6 - 7, this.canvas.height - 124, this.canvas, this.ctx, this.createImage(platform)),
+            new Platform(580 * 7 - 8, this.canvas.height - 124, this.canvas, this.ctx, this.createImage(platform)),
+            new Platform(580 * 8 - 9, this.canvas.height - 124, this.canvas, this.ctx, this.createImage(platform)),
+            new Platform(580 * 9 - 10, this.canvas.height - 124, this.canvas, this.ctx, this.createImage(platform))
+        ];
 
-        this.platforms.push(platform1, platform2, platform3, platform4, platform5, platform6);
+        this.platforms.forEach(platform => platform.draw())
     }
 
     platformCollision() {
@@ -75,10 +107,11 @@ class Game {
     }
 
     init() {
-        this.player = new Player(this.canvas, this.ctx);
+        this.setBackdrop();
         this.makePlatforms();
         this.resetKeys();
         this.scrollOffSet = 0;
+        this.player = new Player(this.canvas, this.ctx);
     }
 
     win() {
@@ -91,6 +124,7 @@ class Game {
         requestAnimationFrame(this.animate);
         this.ctx.fillStyle = "white";
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+        this.setBackdrop();
 
         this.platforms.forEach(platform => platform.draw());
         this.player.update();
@@ -107,13 +141,22 @@ class Game {
                 this.platforms.forEach(platform => {
                     platform.position.x -= this.player.speed;
                 });
+                this.genericObjects.forEach(object => {
+                    console.log(object)
+                    object.position.x -= 6
+                })
             } else if (this.keys.left.pressed) {
                 this.scrollOffSet -= this.player.speed;
                 this.platforms.forEach(platform => {
                     platform.position.x += this.player.speed;
                 });
+                this.genericObjects.forEach(obj => {
+                    obj.position.x += 6
+                })
             }
         }
+
+        // TODO Setup paralax scroll
 
         this.platformCollision();
 

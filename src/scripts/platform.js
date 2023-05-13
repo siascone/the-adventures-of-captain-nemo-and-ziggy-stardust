@@ -1,18 +1,18 @@
 class Platform {
-    constructor(x, y, canvas, ctx) {
+    constructor(x, y, canvas, ctx, image) {
         this.canvas = canvas;
         this.ctx = ctx;
         this.position = {
             x: x,
             y: y
         };
-        this.width = 200;
-        this.height = 20;
+        this.width = image.width;
+        this.height = image.height;
+        this.image = image;
     };
 
-    draw() {
-        this.ctx.fillStyle = 'red';
-        this.ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
+    draw() {   
+        this.ctx.drawImage(this.image, this.position.x, this.position.y);
     };
 };
 
