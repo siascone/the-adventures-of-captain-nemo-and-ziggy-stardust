@@ -2,10 +2,14 @@ import Player from './player';
 import Platform from './platform';
 import GenericObject from './genericObject';
 
-import background from '../images/background.png';
+import background from '../images/TACNAZS-background1.png';
 import hills from '../images/hills.png'
-import platform from '../images/platform.png';
-import platformSmallTall from '../images/platformSmallTall.png';
+import platform from '../images/platform-long2.png';
+import platformSmall from '../images/platform-small.png';
+import platformTall from '../images/platform-tall1.png';
+import platformMedium from '../images/platform-medium.png';
+import platformXSmall from '../images/platform-xsmall.png';
+import mountain from '../images/mountain.png';
 
 class Game {
     constructor(ctx, canvas) {
@@ -51,8 +55,14 @@ class Game {
         this.genericObjects = [
             new GenericObject(this.ctx, this.canvas, -2, -1, this.createImage(background)),
             new GenericObject(this.ctx, this.canvas, -2, -1, this.createImage(hills))
+            // new GenericObject(this.ctx, this.canvas, -2, this.canvas.height - 450, this.createImage(mountain)),
+            // new GenericObject(this.ctx, this.canvas, 200, this.canvas.height - 450, this.createImage(mountain)),
+            // new GenericObject(this.ctx, this.canvas, 200*3, this.canvas.height - 450, this.createImage(mountain)),
+            // new GenericObject(this.ctx, this.canvas, 1200, this.canvas.height - 450, this.createImage(mountain)),
+            // new GenericObject(this.ctx, this.canvas, -2, this.canvas.height - 450, this.createImage(mountain)),
+
         ]
-        this.genericObjects.forEach(genericObject => genericObject.draw())
+        // this.genericObjects.forEach(genericObject => genericObject.draw())
     }
 
     makePlatforms() { // TODO make this a level class creation
@@ -62,19 +72,41 @@ class Game {
         }
 
         this.platforms = [
+            // talls
+            new Platform(580 * 2.5 + 96, this.canvas.height - 100 - 227, this.canvas, this.ctx, this.createImage(platformTall)),
+            new Platform(580 * 5 - 5 + 159, this.canvas.height - 50 - 227, this.canvas, this.ctx, this.createImage(platformTall)),
+
+            // shorts
             new Platform(0, this.canvas.height - 124, this.canvas, this.ctx, this.createImage(platform)),
             new Platform(580 - 2, this.canvas.height - 124, this.canvas, this.ctx, this.createImage(platform)),
-            new Platform(580 * 2 - 3, this.canvas.height - 124, this.canvas, this.ctx, this.createImage(platform)),
-            new Platform(580 * 3 - 4, this.canvas.height - 124, this.canvas, this.ctx, this.createImage(platform)),
-            new Platform(580 * 4 - 5, this.canvas.height - 124, this.canvas, this.ctx, this.createImage(platform)),
-            new Platform(580 * 5 - 6, this.canvas.height - 124, this.canvas, this.ctx, this.createImage(platform)),
-            new Platform(580 * 6 - 7, this.canvas.height - 124, this.canvas, this.ctx, this.createImage(platform)),
-            new Platform(580 * 7 - 8, this.canvas.height - 124, this.canvas, this.ctx, this.createImage(platform)),
-            new Platform(580 * 8 - 9, this.canvas.height - 124, this.canvas, this.ctx, this.createImage(platform)),
-            new Platform(580 * 9 - 10, this.canvas.height - 124, this.canvas, this.ctx, this.createImage(platform))
+            new Platform(580 * 2 - 3 + 100, this.canvas.height - 124, this.canvas, this.ctx, this.createImage(platform)),
+            new Platform(580 * 3 - 4 + 450, this.canvas.height - 124, this.canvas, this.ctx, this.createImage(platform)),
+            new Platform(580 * 4 - 5 + 450, this.canvas.height - 124, this.canvas, this.ctx, this.createImage(platform)),
+            new Platform(580 * 5 - 6 + 850, this.canvas.height - 124, this.canvas, this.ctx, this.createImage(platform)),
+            new Platform(580 * 7 - 6 + 1050, this.canvas.height - 124, this.canvas, this.ctx, this.createImage(platform)),
+            new Platform(580 * 8 - 7 + 1050, this.canvas.height - 124, this.canvas, this.ctx, this.createImage(platform)),
+
+            // smalls
+            new Platform(580 * 5 - 6 + 1050, this.canvas.height - 350, this.canvas, this.ctx, this.createImage(platformSmall)),
+            new Platform(580 * 5 - 6 + 1550, this.canvas.height - 270, this.canvas, this.ctx, this.createImage(platformSmall)),
+            new Platform(580 * 13 - 7 + 1000, this.canvas.height - 124, this.canvas, this.ctx, this.createImage(platform)),
+
+            // mediums
+            new Platform(580 * 10 - 7 + 1050, this.canvas.height - 324, this.canvas, this.ctx, this.createImage(platformMedium)),
+            new Platform(580 * 10 - 7 + 2000, this.canvas.height - 400, this.canvas, this.ctx, this.createImage(platformMedium)),
+
+            // xsmalls
+            new Platform(580 * 9 - 7 + 1050 + 100, this.canvas.height - 224, this.canvas, this.ctx, this.createImage(platformXSmall)),
+            new Platform(580 * 9 - 7 + 1050 + 300, this.canvas.height - 424, this.canvas, this.ctx, this.createImage(platformXSmall)),
+            new Platform(580 * 10 - 7 + 1050 + 650, this.canvas.height - 200, this.canvas, this.ctx, this.createImage(platformXSmall)),
+
+            // new Platform(580 * 6 - 7, this.canvas.height - 124, this.canvas, this.ctx, this.createImage(platform)),
+            // new Platform(580 * 7 - 8, this.canvas.height - 124, this.canvas, this.ctx, this.createImage(platform)),
+            // new Platform(580 * 8 - 9, this.canvas.height - 124, this.canvas, this.ctx, this.createImage(platform)),
+            // new Platform(580 * 9 - 10, this.canvas.height - 124, this.canvas, this.ctx, this.createImage(platform))
         ];
 
-        this.platforms.forEach(platform => platform.draw())
+        // this.platforms.forEach(platform => platform.draw())
     }
 
     platformCollision() {
@@ -115,7 +147,8 @@ class Game {
     }
 
     win() {
-        if (this.scrollOffSet > 2000) {
+        if (this.scrollOffSet > 11500) {
+            // alert('you win')
             console.log('you win!')
         }
     }
@@ -124,39 +157,46 @@ class Game {
         requestAnimationFrame(this.animate);
         this.ctx.fillStyle = "white";
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-        this.setBackdrop();
-
+        
+        this.genericObjects.forEach(obj => obj.draw());
         this.platforms.forEach(platform => platform.draw());
         this.player.update();
 
-        if (this.keys.right.pressed && this.player.position.x < 400) {
+        if (
+            (this.keys.right.pressed && this.player.position.x < 400) || 
+            (this.keys.right.pressed && this.scrollOffSet >= 19300 && this.player.position.x < (1024 - this.player.width))
+        ) {
             this.player.velocity.x = this.player.speed;
-        } else if (this.keys.left.pressed && this.player.position.x > 100) {
+        }  else if (
+            (this.keys.left.pressed && this.player.position.x > 100) || 
+            (this.keys.left.pressed && this.scrollOffSet === 0 && this.player.position.x > 0)
+        ) {
             this.player.velocity.x = -this.player.speed;
         } else {
             this.player.velocity.x = 0;
 
-            if (this.keys.right.pressed) {
+            if (this.keys.right.pressed && this.scrollOffSet <= 19250) {
                 this.scrollOffSet += this.player.speed;
                 this.platforms.forEach(platform => {
                     platform.position.x -= this.player.speed;
                 });
                 this.genericObjects.forEach(object => {
-                    console.log(object)
-                    object.position.x -= 6
+                    object.position.x -= this.player.speed * .55
                 })
-            } else if (this.keys.left.pressed) {
+            } else if (this.keys.left.pressed && this.scrollOffSet > 0) {
                 this.scrollOffSet -= this.player.speed;
                 this.platforms.forEach(platform => {
                     platform.position.x += this.player.speed;
                 });
                 this.genericObjects.forEach(obj => {
-                    obj.position.x += 6
+                    obj.position.x += this.player.speed * .55
                 })
             }
         }
 
         // TODO Setup paralax scroll
+
+        console.log(`Scroll Offset: ${this.scrollOffSet}, Player Position: ${this.player.position.x}`)
 
         this.platformCollision();
 

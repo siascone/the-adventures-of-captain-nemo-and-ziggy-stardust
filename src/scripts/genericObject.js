@@ -10,6 +10,8 @@ class GenericObject {
         this.image = image;
         this.height = canvas.height;
         this.width = canvas.width;
+
+        this.draw = this.draw.bind(this);
     }
 
     draw() {
