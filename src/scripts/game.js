@@ -28,6 +28,7 @@ class Game {
         this.scrollOffSet = 0;
         this.platforms = []; // TODO make a level class that handles platforms
         this.genericObjects = [];
+        this.background = [];
        
         this.bindKeys = this.bindKeys.bind(this);
         this.makePlatforms = this.makePlatforms.bind(this);
@@ -52,15 +53,21 @@ class Game {
             this.genericObjects = []
         }
 
+        if (this.background.length > 0) {
+            this.background = [];
+        }
+
         this.genericObjects = [
-            new GenericObject(this.ctx, this.canvas, -2, -1, this.createImage(background)),
             new GenericObject(this.ctx, this.canvas, -2, -1, this.createImage(hills))
             // new GenericObject(this.ctx, this.canvas, -2, this.canvas.height - 450, this.createImage(mountain)),
             // new GenericObject(this.ctx, this.canvas, 200, this.canvas.height - 450, this.createImage(mountain)),
             // new GenericObject(this.ctx, this.canvas, 200*3, this.canvas.height - 450, this.createImage(mountain)),
             // new GenericObject(this.ctx, this.canvas, 1200, this.canvas.height - 450, this.createImage(mountain)),
             // new GenericObject(this.ctx, this.canvas, -2, this.canvas.height - 450, this.createImage(mountain)),
+        ]
 
+        this.background = [
+            new GenericObject(this.ctx, this.canvas, -2, -1, this.createImage(background)),
         ]
         // this.genericObjects.forEach(genericObject => genericObject.draw())
     }
@@ -157,7 +164,8 @@ class Game {
         requestAnimationFrame(this.animate);
         this.ctx.fillStyle = "white";
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-        
+
+        this.background.forEach(obj => obj.draw());
         this.genericObjects.forEach(obj => obj.draw());
         this.platforms.forEach(platform => platform.draw());
         this.player.update();
@@ -180,17 +188,27 @@ class Game {
                 this.platforms.forEach(platform => {
                     platform.position.x -= this.player.speed;
                 });
+                
                 this.genericObjects.forEach(object => {
                     object.position.x -= this.player.speed * .55
+                })
+
+                this.background.forEach(object => {
+                    object.position.x -= this.player.speed * .25
                 })
             } else if (this.keys.left.pressed && this.scrollOffSet > 0) {
                 this.scrollOffSet -= this.player.speed;
                 this.platforms.forEach(platform => {
                     platform.position.x += this.player.speed;
                 });
+
                 this.genericObjects.forEach(obj => {
                     obj.position.x += this.player.speed * .55
-                })
+                });
+
+                this.background.forEach(object => {
+                    object.position.x += this.player.speed * .25
+                });
             }
         }
 
