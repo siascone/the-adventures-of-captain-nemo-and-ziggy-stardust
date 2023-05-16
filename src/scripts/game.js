@@ -3,13 +3,13 @@ import Platform from './platform';
 import GenericObject from './genericObject';
 
 import background from '../images/TACNAZS-background1.png';
-import hills from '../images/hills.png'
+import hills from '../images/TACNAZS_hills.png'
 import platform from '../images/platform-long2.png';
 import platformSmall from '../images/platform-small.png';
 import platformTall from '../images/platform-tall1.png';
 import platformMedium from '../images/platform-medium.png';
 import platformXSmall from '../images/platform-xsmall.png';
-import mountain from '../images/mountain.png';
+// import mountain from '../images/mountain.png';
 
 class Game {
     constructor(ctx, canvas) {
