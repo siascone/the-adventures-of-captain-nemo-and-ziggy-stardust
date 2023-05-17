@@ -16,7 +16,7 @@ class Game {
         this.ctx = ctx;
         this.canvas = canvas
         this.animate = this.animate.bind(this);
-        this.player = new Player(this.canvas, this.ctx)
+        this.player = new Player(this.canvas, this.ctx, this.createImage)
         this.keys = {
             right: {
                 pressed: false
@@ -29,6 +29,7 @@ class Game {
         this.platforms = []; // TODO make a level class that handles platforms
         this.genericObjects = [];
         this.background = [];
+        this.lastKey;
        
         this.bindKeys = this.bindKeys.bind(this);
         this.makePlatforms = this.makePlatforms.bind(this);
@@ -150,7 +151,7 @@ class Game {
         this.makePlatforms();
         this.resetKeys();
         this.scrollOffSet = 0;
-        this.player = new Player(this.canvas, this.ctx);
+        this.player = new Player(this.canvas, this.ctx, this.createImage);
     }
 
     win() {
@@ -212,15 +213,51 @@ class Game {
             }
         }
 
+        if (this.keys.right.pressed && this.lastKey === 'right' && this.player.currentSprite !== this.player.sprites.run.right) {
+            this.player.frames = 1
+            this.player.currentSprite = this.player.sprites.run.right
+            this.player.currentCropWidth = this.player.sprites.run.cropWidth
+            this.player.width = this.player.sprites.run.width
+        } else if (this.keys.left.pressed && this.lastKey === 'left' && this.player.currentSprite !== this.player.sprites.run.left) {
+            this.player.frames = 1
+            this.player.currentSprite = this.player.sprites.run.left
+            console.log(this.player.currentSprite)
+            this.player.currentCropWidth = this.player.sprites.run.cropWidth
+            this.player.width = this.player.sprites.run.width
+        } else if (!this.keys.presssed && this.lastKey === 'left' && this.player.currentSprite !== this.player.sprites.stand.left) {
+            // debugger
+            this.player.frames = 1
+            this.player.currentSprite = this.player.sprites.stand.left
+            this.player.currentCropWidth = this.player.sprites.stand.cropWidth
+            this.player.width = this.player.sprites.stand.width
+        } else if (!this.keys.right.pressed && this.lastKey === 'right' && this.player.currentSprite !== this.player.sprites.stand.right) {
+            // debugger
+            this.player.frames = 1
+            this.player.currentSprite = this.player.sprites.stand.right
+            this.player.currentCropWidth = this.player.sprites.stand.cropWidth
+            this.player.width = this.player.sprites.stand.width
+        }
         // TODO Setup paralax scroll
 
-        console.log(`Scroll Offset: ${this.scrollOffSet}, Player Position: ${this.player.position.x}`)
+        // console.log(`Scroll Offset: ${this.scrollOffSet}, Player Position: ${this.player.position.x}`)
 
-        this.platformCollision();
+        // this.platformCollision();
+        this.platforms.forEach(platform => {
+            if (this.player.position.y + this.player.height <= platform.position.y &&
+                this.player.position.y + this.player.height + this.player.velocity.y >= platform.position.y &&
+                this.player.position.x + this.player.width >= platform.position.x &&
+                this.player.position.x <= platform.position.x + platform.width
+            ) {
+                this.player.velocity.y = 0;
+            };
+        });
 
-        this.floorHit();
+        // this.floorHit();
+        if (this.player.position.y >= this.canvas.height) {
+            this.init();
+        }
 
-        this.win();
+        // this.win();
     }
 
     bindKeys() {
@@ -231,12 +268,14 @@ class Game {
                     break; 
                 case 65: // left
                     this.keys.left.pressed = true;
+                    this.lastKey = 'left';
                     break;
                 case 83: // down
                     
                     break;
                 case 68: // right
                     this.keys.right.pressed = true;
+                    this.lastKey = 'right';
                     break;
 
             }
