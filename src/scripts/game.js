@@ -9,6 +9,7 @@ import platformSmall from '../images/platform-small.png';
 import platformTall from '../images/platform-tall1.png';
 import platformMedium from '../images/platform-medium.png';
 import platformXSmall from '../images/platform-xsmall.png';
+import door from '../images/door.png'
 // import mountain from '../images/mountain.png';
 
 class Game {
@@ -83,6 +84,8 @@ class Game {
             // talls
             new Platform(580 * 2.5 + 96, this.canvas.height - 100 - 227, this.canvas, this.ctx, this.createImage(platformTall)),
             new Platform(580 * 5 - 5 + 159, this.canvas.height - 50 - 227, this.canvas, this.ctx, this.createImage(platformTall)),
+            new Platform(580 * 21 - 7 + 1100, this.canvas.height - 100 - 227, this.canvas, this.ctx, this.createImage(platformTall)),
+            new Platform(580 * 31 - 7 + 1700, this.canvas.height - 50 - 227, this.canvas, this.ctx, this.createImage(platformTall)),
 
             // shorts
             new Platform(0, this.canvas.height - 124, this.canvas, this.ctx, this.createImage(platform)),
@@ -93,20 +96,53 @@ class Game {
             new Platform(580 * 5 - 6 + 850, this.canvas.height - 124, this.canvas, this.ctx, this.createImage(platform)),
             new Platform(580 * 7 - 6 + 1050, this.canvas.height - 124, this.canvas, this.ctx, this.createImage(platform)),
             new Platform(580 * 8 - 7 + 1050, this.canvas.height - 124, this.canvas, this.ctx, this.createImage(platform)),
+            new Platform(580 * 13 - 7 + 1000, this.canvas.height - 124, this.canvas, this.ctx, this.createImage(platform)),
+            new Platform(580 * 14 - 7 + 1000, this.canvas.height - 124, this.canvas, this.ctx, this.createImage(platform)),
+            new Platform(580 * 15 - 7 + 1300, this.canvas.height - 124, this.canvas, this.ctx, this.createImage(platform)),
+            new Platform(580 * 17 - 7 + 1300, this.canvas.height - 124, this.canvas, this.ctx, this.createImage(platform)),
+            new Platform(580 * 18 - 7 + 1300, this.canvas.height - 124, this.canvas, this.ctx, this.createImage(platform)),
+            new Platform(580 * 20 - 7 + 1100, this.canvas.height - 124, this.canvas, this.ctx, this.createImage(platform)),
+            new Platform(580 * 21 - 7 + 1100, this.canvas.height - 124, this.canvas, this.ctx, this.createImage(platform)),
+            new Platform(580 * 22 - 7 + 1100, this.canvas.height - 124, this.canvas, this.ctx, this.createImage(platform)),
+            new Platform(580 * 23 - 7 + 1100, this.canvas.height - 124, this.canvas, this.ctx, this.createImage(platform)),
+            new Platform(580 * 25 - 7 + 800, this.canvas.height - 124, this.canvas, this.ctx, this.createImage(platform)),
+            new Platform(580 * 26 - 7 + 800, this.canvas.height - 124, this.canvas, this.ctx, this.createImage(platform)),
+            new Platform(580 * 27 - 7 + 800, this.canvas.height - 124, this.canvas, this.ctx, this.createImage(platform)),
+            new Platform(580 * 29 - 7 + 1700, this.canvas.height - 124, this.canvas, this.ctx, this.createImage(platform)),
+            new Platform(580 * 30 - 7 + 1700, this.canvas.height - 124, this.canvas, this.ctx, this.createImage(platform)),
+            new Platform(580 * 31 - 7 + 1700, this.canvas.height - 124, this.canvas, this.ctx, this.createImage(platform)),
+            new Platform(580 * 32 - 7 + 1700, this.canvas.height - 124, this.canvas, this.ctx, this.createImage(platform)),
 
             // smalls
             new Platform(580 * 5 - 6 + 1050, this.canvas.height - 350, this.canvas, this.ctx, this.createImage(platformSmall)),
             new Platform(580 * 5 - 6 + 1550, this.canvas.height - 270, this.canvas, this.ctx, this.createImage(platformSmall)),
-            new Platform(580 * 13 - 7 + 1000, this.canvas.height - 124, this.canvas, this.ctx, this.createImage(platform)),
+            // new Platform(580 * 13 - 7 + 1000, this.canvas.height - 124, this.canvas, this.ctx, this.createImage(platformSmall)),
+            new Platform(580 * 17 - 7 + 1100, this.canvas.height - 124, this.canvas, this.ctx, this.createImage(platformSmall)),
+            new Platform(580 * 31 - 7 + 1745, this.canvas.height - 50 - 352, this.canvas, this.ctx, this.createImage(platformSmall)),
+            new Platform(580 * 31 - 7 + 1807, this.canvas.height - 50 - 297, this.canvas, this.ctx, this.createImage(door)),
+            
 
             // mediums
             new Platform(580 * 10 - 7 + 1050, this.canvas.height - 324, this.canvas, this.ctx, this.createImage(platformMedium)),
             new Platform(580 * 10 - 7 + 2000, this.canvas.height - 400, this.canvas, this.ctx, this.createImage(platformMedium)),
+            new Platform(580 * 22 - 7 + 1100, this.canvas.height - 327, this.canvas, this.ctx, this.createImage(platformMedium)),
+            new Platform(580 * 23 - 7 + 1100, this.canvas.height - 327, this.canvas, this.ctx, this.createImage(platformMedium)),
+            
+            
 
             // xsmalls
             new Platform(580 * 9 - 7 + 1050 + 100, this.canvas.height - 224, this.canvas, this.ctx, this.createImage(platformXSmall)),
             new Platform(580 * 9 - 7 + 1050 + 300, this.canvas.height - 424, this.canvas, this.ctx, this.createImage(platformXSmall)),
             new Platform(580 * 10 - 7 + 1050 + 650, this.canvas.height - 200, this.canvas, this.ctx, this.createImage(platformXSmall)),
+            new Platform(580 * 16 - 7 + 1400, this.canvas.height - 270, this.canvas, this.ctx, this.createImage(platformXSmall)),
+            new Platform(580 * 17 - 7 + 1200, this.canvas.height - 400, this.canvas, this.ctx, this.createImage(platformXSmall)),
+            new Platform(580 * 17 - 7 + 1500, this.canvas.height - 400, this.canvas, this.ctx, this.createImage(platformXSmall)),
+            new Platform(580 * 18 - 7 + 1200, this.canvas.height - 400, this.canvas, this.ctx, this.createImage(platformXSmall)),
+            new Platform(580 * 18 - 7 + 1500, this.canvas.height - 324, this.canvas, this.ctx, this.createImage(platformXSmall)),
+            new Platform(580 * 28 - 7 + 900, this.canvas.height - 324, this.canvas, this.ctx, this.createImage(platformXSmall)),
+            new Platform(580 * 28 - 7 + 1300, this.canvas.height - 400, this.canvas, this.ctx, this.createImage(platformXSmall)),
+            new Platform(580 * 28 - 7 + 1700, this.canvas.height - 275, this.canvas, this.ctx, this.createImage(platformXSmall)),
+            new Platform(580 * 31 - 7 + 1780, this.canvas.height - 50 - 477, this.canvas, this.ctx, this.createImage(platformXSmall)),
 
             // new Platform(580 * 6 - 7, this.canvas.height - 124, this.canvas, this.ctx, this.createImage(platform)),
             // new Platform(580 * 7 - 8, this.canvas.height - 124, this.canvas, this.ctx, this.createImage(platform)),
